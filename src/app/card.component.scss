@@ -1,0 +1,16 @@
+:host {
+  display: block;
+  border: 1px solid #ccc;
+  background-color: darkgrey;
+  color: black;
+
+  h4 {
+    text-align: center;
+    margin-block: 0.5rem;
+  }
+
+  button {
+    display: inline-block;
+    margin-left: auto;
+  }
+}

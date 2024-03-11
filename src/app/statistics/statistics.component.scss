@@ -1,0 +1,42 @@
+app-statistics {
+  display: block;
+
+  .info {
+    height: 185px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .day-statistic {
+    height: 195px;
+  }
+
+  th {
+    border-top: 1px solid;
+  }
+
+  td {
+    width: 61.5px;
+  }
+
+  th,
+  td {
+    text-align: center;
+    border-right: 1px solid;
+    border-bottom: 1px solid;
+  }
+
+  .lunch {
+    background-color: rgb(252, 229, 205) !important;
+    color: black;
+  }
+  .dinner {
+    background-color: rgb(217, 234, 211) !important;
+    color: black;
+  }
+  .unknown {
+    background-color: rgb(217, 210, 233) !important;
+    color: black;
+  }
+}

@@ -1,0 +1,44 @@
+<form [formGroup]="form" (ngSubmit)="filter()">
+  <fieldset>
+    <legend>Filtra per data</legend>
+    <input type="number" min="1" max="31" formControlName="day" />
+    <input type="number" min="1" max="12" formControlName="month" />
+    <input type="number" min="2019" max="2020" formControlName="year" />
+  </fieldset>
+  <fieldset>
+    <legend>Filtra per servizio</legend>
+    <div>
+      <label>
+        Pranzo
+        <input type="checkbox" formControlName="lunchServiceType" />
+      </label>
+      <label>
+        Cena
+        <input type="checkbox" formControlName="dinnerServiceType" />
+      </label>
+      <label>
+        Non Definito
+        <input type="checkbox" formControlName="unknownServiceType" />
+      </label>
+    </div>
+  </fieldset>
+  <fieldset>
+    <legend>Filtra per come ci hai conosciuto</legend>
+    <div>
+      <label>
+        Facebook / Google
+        <input type="checkbox" formControlName="knowSocial" />
+      </label>
+      <label>
+        Passaparola / Amici
+        <input type="checkbox" formControlName="knowFriends" />
+      </label>
+      <label>
+        Sono cliente da tempo
+        <input type="checkbox" formControlName="client" />
+      </label>
+    </div>
+  </fieldset>
+
+  <button type="submit">Filtra</button>
+</form>

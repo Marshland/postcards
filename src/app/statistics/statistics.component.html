@@ -1,0 +1,73 @@
+<p class="info">
+  <span><b>Totale cartoline:</b> {{ total }}</span>
+  <br />
+  <span>
+    <b>Come ci hai conosciuto?</b><br />
+    <span><b>Facebook:</b> {{ percentageSocial }}%</span><br />
+    <span><b>Passaparola:</b> {{ percentageFriends }}%</span><br />
+    <span><b>Cliente da tempo:</b> {{ percentageClients }}%</span>
+  </span>
+</p>
+
+@for(day of (statisticDays | keyvalue: valueAscOrder); track day.key) {
+<div class="day-statistic">
+  <h3>{{ day.key }}</h3>
+
+  <table>
+    <tr>
+      <th></th>
+      <th colspan="5">Cibo</th>
+      <th colspan="5">Servizio</th>
+      <th colspan="5">Location</th>
+      <th colspan="5">Accoglienza</th>
+    </tr>
+    <tr>
+      <td></td>
+      @for(i of [1,2,3,4]; track i){
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>5</td>
+      }
+    </tr>
+    @for(statistic of day.value | keyvalue; track statistic.key) {
+    <tr [attr.class]="statistic.key">
+      <td>
+        {{
+          statistic.key === "lunch"
+            ? "Pranzo"
+            : statistic.key === "dinner"
+            ? "Cena"
+            : "N.D."
+        }}
+      </td>
+
+      <td>{{ statistic.value.foodPercentage[1] }}%</td>
+      <td>{{ statistic.value.foodPercentage[2] }}%</td>
+      <td>{{ statistic.value.foodPercentage[3] }}%</td>
+      <td>{{ statistic.value.foodPercentage[4] }}%</td>
+      <td>{{ statistic.value.foodPercentage[5] }}%</td>
+
+      <td>{{ statistic.value.servicePercentage[1] }}%</td>
+      <td>{{ statistic.value.servicePercentage[2] }}%</td>
+      <td>{{ statistic.value.servicePercentage[3] }}%</td>
+      <td>{{ statistic.value.servicePercentage[4] }}%</td>
+      <td>{{ statistic.value.servicePercentage[5] }}%</td>
+
+      <td>{{ statistic.value.locationPercentage[1] }}%</td>
+      <td>{{ statistic.value.locationPercentage[2] }}%</td>
+      <td>{{ statistic.value.locationPercentage[3] }}%</td>
+      <td>{{ statistic.value.locationPercentage[4] }}%</td>
+      <td>{{ statistic.value.locationPercentage[5] }}%</td>
+
+      <td>{{ statistic.value.hospitalityPercentage[1] }}%</td>
+      <td>{{ statistic.value.hospitalityPercentage[2] }}%</td>
+      <td>{{ statistic.value.hospitalityPercentage[3] }}%</td>
+      <td>{{ statistic.value.hospitalityPercentage[4] }}%</td>
+      <td>{{ statistic.value.hospitalityPercentage[5] }}%</td>
+    </tr>
+    }
+  </table>
+</div>
+}
