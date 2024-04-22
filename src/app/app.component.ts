@@ -57,14 +57,14 @@ export class AppComponent {
       [Validators.required, Validators.min(1), Validators.max(31)],
     ],
     serviceType: ['lunch' as ServiceType],
-    food: [1, [Validators.required, Validators.min(1), Validators.max(5)]],
-    service: [1, [Validators.required, Validators.min(1), Validators.max(5)]],
-    location: [1, [Validators.required, Validators.min(1), Validators.max(5)]],
+    food: [5, [Validators.required, Validators.min(1), Validators.max(5)]],
+    service: [5, [Validators.required, Validators.min(1), Validators.max(5)]],
+    location: [5, [Validators.required, Validators.min(1), Validators.max(5)]],
     hospitality: [
-      1,
+      5,
       [Validators.required, Validators.min(1), Validators.max(5)],
     ],
-    howKnowUs: ['social' as HowKnowUs],
+    howKnowUs: ['client' as HowKnowUs],
   });
 
   onSubmit() {
@@ -116,9 +116,7 @@ export class AppComponent {
 
     this.$showNotifications.set(true);
 
-    (
-      document.querySelector('[formcontrolname="food"]')! as HTMLElement
-    ).focus();
+    (document.querySelector('[formcontrolname="day"]')! as HTMLElement).focus();
 
     setTimeout(() => {
       this.$showNotifications.set(false);
