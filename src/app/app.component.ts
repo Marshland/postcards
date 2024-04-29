@@ -1,4 +1,4 @@
-import { KeyValuePipe } from '@angular/common';
+import { KeyValuePipe, NgIf } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -22,12 +22,14 @@ import { HowKnowUs, ServiceType, postCard, postCards } from './types';
     SearchComponent,
     CardComponent,
     StatisticsComponent,
+    NgIf,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
   $showNotifications = signal(false);
+  $showStats = signal(false);
 
   $postCards = JSON.parse(
     localStorage.getItem('postCards') ?? '{}'
@@ -121,6 +123,10 @@ export class AppComponent {
     setTimeout(() => {
       this.$showNotifications.set(false);
     }, 1000);
+  }
+
+  toggleStats() {
+    this.$showStats.set(!this.$showStats());
   }
 
   deleteCard(card: postCard) {

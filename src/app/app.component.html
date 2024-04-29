@@ -1,4 +1,8 @@
-<app-statistics></app-statistics>
+<button type="button" (click)="toggleStats()">
+  Nascondi/visualizza statistiche
+</button>
+
+<app-statistics *ngIf="$showStats()"></app-statistics>
 
 <div class="hide-print">
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
@@ -27,6 +31,7 @@
             formControlName="serviceType"
           />
         </label>
+        <br />
         <label>
           Cena
           <input
@@ -36,6 +41,7 @@
             formControlName="serviceType"
           />
         </label>
+        <br />
         <label>
           Non Definito
           <input
@@ -46,7 +52,7 @@
           />
         </label>
       </div>
-
+      <br />
       <div>
         <label>
           Cibo
