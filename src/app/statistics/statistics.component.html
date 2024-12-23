@@ -34,13 +34,7 @@
     @for(statistic of day.value | keyvalue; track statistic.key) {
     <tr [attr.class]="statistic.key">
       <td>
-        {{
-          statistic.key === "lunch"
-            ? "Pranzo"
-            : statistic.key === "dinner"
-            ? "Cena"
-            : "N.D."
-        }}
+        {{ statistic.key === 'lunch' ? 'Pranzo' : statistic.key === 'dinner' ? 'Cena' : 'N.D.' }}
       </td>
 
       <td>{{ statistic.value.foodPercentage[1] }}%</td>

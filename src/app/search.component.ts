@@ -1,21 +1,18 @@
-import {
-  Component,
-  EventEmitter,
-  Output,
-  ViewEncapsulation,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { postCard, postCards } from './types';
+import type { ServiceType, YearPostcards } from './types';
+import { assertType } from './utils/utils';
 
 @Component({
   selector: 'search',
-  standalone: true,
   templateUrl: './search.component.html',
   encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ReactiveFormsModule],
 })
 export class SearchComponent {
-  @Output() results = new EventEmitter<postCard[]>();
+  readonly postcards = input.required<YearPostcards>();
+  readonly results = output<YearPostcards>();
 
   currentDate = new Date();
   minYear = this.currentDate.getFullYear() - 1;
@@ -25,95 +22,56 @@ export class SearchComponent {
   form = this.fb.nonNullable.group({
     year: [
       this.currentDate.getFullYear(),
-      [
-        Validators.required,
-        Validators.min(this.minYear),
-        Validators.max(this.maxYear),
-      ],
+      [Validators.required, Validators.min(this.minYear), Validators.max(this.maxYear)],
     ],
-    month: [
-      this.currentDate.getMonth() + 1,
-      [Validators.required, Validators.min(0), Validators.max(12)],
-    ],
-    day: [
-      this.currentDate.getDate(),
-      [Validators.required, Validators.min(0), Validators.max(31)],
-    ],
-    lunchServiceType: true,
-    dinnerServiceType: true,
-    unknownServiceType: true,
-    knowSocial: true,
-    knowFriends: true,
+    month: [this.currentDate.getMonth() + 1, [Validators.required, Validators.min(0), Validators.max(12)]],
+    day: [this.currentDate.getDate(), [Validators.required, Validators.min(0), Validators.max(31)]],
+    lunch: true,
+    dinner: true,
+    unknown: true,
+    social: true,
+    friend: true,
     client: true,
   });
 
   protected filter() {
-    const postCards = JSON.parse(
-      localStorage.getItem('postCards') ?? '{}'
-    ) as postCards;
+    const postcards = this.postcards();
 
-    const {
-      year,
-      month,
-      day,
-      lunchServiceType,
-      dinnerServiceType,
-      unknownServiceType,
-      knowSocial,
-      knowFriends,
-      client,
-    } = this.form.getRawValue();
+    const filter = this.form.getRawValue();
 
-    const data: postCard[] = [];
-    let filteredData = {};
-    let filteredMonth = [];
+    const result: YearPostcards = {};
 
-    if (!(postCards as any)[year]) return;
-    filteredData = (postCards as any)[year];
+    for (const [year, monthPostcards] of Object.entries(postcards)) {
+      assertType<number>(year);
+      if (filter.year && year !== filter.year) continue;
 
-    if (month > 0) {
-      if (!(filteredData as any)[month]) return;
-      filteredMonth.push((filteredData as any)[month]);
-    } else {
-      for (const month in filteredData) {
-        filteredMonth.push((filteredData as any)[month]);
-      }
-    }
+      for (const [month, dayPostcards] of Object.entries(monthPostcards)) {
+        assertType<number>(month);
+        if (filter.month && month !== filter.month) continue;
 
-    for (const monthObj of filteredMonth) {
-      for (const dayOfMonth in monthObj) {
-        if (day > 0 && day !== +dayOfMonth) continue;
+        for (const [day, servieTypePostcards] of Object.entries(dayPostcards)) {
+          assertType<number>(day);
+          if (filter.day && day !== filter.day) continue;
 
-        for (const serviceType in monthObj[day]) {
-          if (
-            (lunchServiceType && serviceType === 'lunch') ||
-            (dinnerServiceType && serviceType === 'dinner') ||
-            (unknownServiceType && serviceType === 'unknown')
-          ) {
-            const allPostCards = monthObj[day][serviceType].filter(
-              (postCard: Partial<postCard>) => {
-                if (knowSocial && postCard.howKnowUs === 'social') return true;
-                if (knowFriends && postCard.howKnowUs === 'friend') return true;
-                if (client && postCard.howKnowUs === 'client') return true;
-                return false;
-              }
-            );
+          for (const [service, postcards] of Object.entries(servieTypePostcards)) {
+            assertType<ServiceType>(service);
+            if (filter[service] === false) continue;
 
-            for (const postCard of allPostCards) {
-              data.push({
-                ...postCard,
-                serviceType,
-                year,
-                month,
-                day: +dayOfMonth,
-              });
+            for (const postcard of postcards) {
+              if (filter[postcard.howKnowUs] === false) return;
+
+              if (!result[year]) result[year] = {};
+              if (!result[year][month]) result[year][month] = {};
+              if (!result[year][month][day]) result[year][month][day] = {};
+              if (!result[year][month][day][service]) result[year][month][day][service] = [];
+
+              result[year][month][day][service].push(postcard);
             }
           }
         }
       }
-    }
 
-    console.log(data);
-    this.results.emit(data);
+      this.results.emit(result);
+    }
   }
 }

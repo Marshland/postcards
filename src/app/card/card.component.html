@@ -1,0 +1,12 @@
+<div>
+  <h4>{{ card().day }}/{{ card().month }}/{{ card().year }}</h4>
+  <ul>
+    <li>Tipo Servizio: {{ card().serviceType }}</li>
+    <li>Cibo: {{ card().food }}</li>
+    <li>Servizio: {{ card().service }}</li>
+    <li>Location: {{ card().location }}</li>
+    <li>Accoglienza: {{ card().hospitality }}</li>
+    <li>Conosciuto: {{ card().howKnowUs }}</li>
+  </ul>
+  <button (click)="delete.emit(card())">❌</button>
+</div>

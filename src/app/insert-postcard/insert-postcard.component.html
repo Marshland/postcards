@@ -1,0 +1,95 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <fieldset>
+    <legend>Data</legend>
+    <label data-inline>
+      Anno
+      <input type="number" [min]="minYear" [max]="maxYear" formControlName="year" />
+    </label>
+    <label data-inline>
+      Mese
+      <input type="number" min="1" max="12" formControlName="month" />
+    </label>
+    <label data-inline>
+      Giorno
+      <input type="number" min="1" max="31" formControlName="day" />
+    </label>
+  </fieldset>
+
+  <fieldset>
+    <legend>Servizio</legend>
+
+    <label>
+      Pranzo
+      <input type="radio" name="serviceType" value="lunch" formControlName="serviceType" />
+    </label>
+
+    <label>
+      Cena
+      <input type="radio" name="serviceType" value="dinner" formControlName="serviceType" />
+    </label>
+
+    <label>
+      Non Definito
+      <input type="radio" name="serviceType" value="unknown" formControlName="serviceType" />
+    </label>
+  </fieldset>
+
+  <fieldset>
+    <legend>Voti</legend>
+
+    <label>
+      Cibo
+      <input type="number" min="1" max="5" formControlName="food" />
+    </label>
+
+    <label>
+      Servizio
+      <input type="number" min="1" max="5" formControlName="service" />
+    </label>
+
+    <label>
+      Location
+      <input type="number" min="1" max="5" formControlName="location" />
+    </label>
+
+    <label>
+      Accoglienza
+      <input type="number" min="1" max="5" formControlName="hospitality" />
+    </label>
+  </fieldset>
+
+  <fieldset>
+    <legend>Come ci hai conosciuto</legend>
+
+    <label>
+      Social
+      <input type="radio" name="howKnowUs" value="social" formControlName="howKnowUs" />
+    </label>
+
+    <label>
+      Passaparola / Amici
+      <input type="radio" name="howKnowUs" value="friend" formControlName="howKnowUs" />
+    </label>
+
+    <label>
+      Cliente
+      <input type="radio" name="howKnowUs" value="client" formControlName="howKnowUs" />
+    </label>
+  </fieldset>
+
+  <fieldset>
+    <legend>Contatti</legend>
+
+    <label>
+      Email
+      <input type="email" formControlName="email" />
+    </label>
+
+    <label>
+      Telefono
+      <input type="tel" formControlName="phone" />
+    </label>
+  </fieldset>
+
+  <button type="submit" [disabled]="!form.valid">Salva</button>
+</form>

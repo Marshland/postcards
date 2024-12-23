@@ -1,0 +1,93 @@
+app-insert-postcard {
+  display: block;
+  margin: auto;
+  padding: 0.5rem;
+  max-width: 500px;
+
+  fieldset {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    margin-block-end: 0.5rem;
+  }
+
+  /* radio */
+  label:has(input[type='radio']) {
+    padding: 0.2rem 0.5rem;
+    background-color: #f0f0f0;
+    color: #000;
+    cursor: pointer;
+    text-overflow: ellipsis;
+    display: inline-block;
+    border-radius: 5px;
+    margin-block-end: 4px;
+    border: 1.5px solid #ccc;
+
+    input {
+      appearance: none;
+      margin: 0;
+      padding: 0;
+      width: 0;
+      height: 0;
+      outline: none;
+    }
+
+    &:not(:last-child) {
+      margin-inline-end: 4px;
+    }
+  }
+
+  label:has(input[type='radio']:checked) {
+    background-color: #1b66c8;
+    border: 1.5px solid #4a93d7;
+    color: #fff;
+  }
+
+  label:has(input[type='radio']:focus):focus-within {
+    outline: 2px solid #5099ed;
+  }
+
+  label:has(input[type='radio']:not(:checked)):hover {
+    outline: 2px solid #5099ed;
+    color: black;
+    background-color: #fafcff;
+  }
+
+  /* number */
+  label:has(input[type='number']) {
+    &:not([data-inline]) {
+      display: flex;
+      justify-content: space-between;
+      margin-block-end: 4px;
+    }
+
+    &[data-inline] {
+      display: inline-flex;
+      flex-direction: column;
+      column-gap: 4px;
+      margin-inline-end: 4px;
+    }
+
+    input {
+      padding: 0.2rem 0.5rem;
+      border: 1.5px solid #ccc;
+      border-radius: 5px;
+      min-width: max-content;
+    }
+  }
+
+  /* text */
+  label:has(input[type='email'], input[type='text'], input[type='tel']) {
+    display: inline-flex;
+    flex-direction: column;
+    column-gap: 4px;
+    margin-block-end: 4px;
+    width: 100%;
+
+    input {
+      padding: 0.2rem 0.5rem;
+      border: 1.5px solid #ccc;
+      border-radius: 5px;
+    }
+  }
+}
