@@ -1,0 +1,959 @@
+{
+  "2023": {
+    "2": {
+      "1": {
+        "lunch": [
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "client"
+          }
+        ]
+      },
+      "2": {
+        "lunch": [
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "friend"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "client"
+          }
+        ],
+        "dinner": [
+          {
+            "food": 5,
+            "service": 4,
+            "location": 4,
+            "hospitality": 5,
+            "howKnowUs": "friend"
+          },
+          {
+            "food": 4,
+            "service": 4,
+            "location": 4,
+            "hospitality": 4,
+            "howKnowUs": "friend"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "client"
+          }
+        ]
+      },
+      "3": {
+        "lunch": [
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "client"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "client"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 4,
+            "howKnowUs": "friend"
+          }
+        ],
+        "dinner": [
+          {
+            "food": 4,
+            "service": 5,
+            "location": 3,
+            "hospitality": 5,
+            "howKnowUs": "client"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "social"
+          }
+        ]
+      },
+      "4": {
+        "lunch": [
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "friend"
+          }
+        ],
+        "dinner": [
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "friend"
+          },
+          {
+            "food": 4,
+            "service": 5,
+            "location": 4,
+            "hospitality": 5,
+            "howKnowUs": "friend"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "client"
+          }
+        ]
+      },
+      "5": {
+        "lunch": [
+          {
+            "food": 5,
+            "service": 5,
+            "location": 3,
+            "hospitality": 5,
+            "howKnowUs": "friend"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "friend"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "friend"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "friend"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "client"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "client"
+          },
+          {
+            "food": 4,
+            "service": 4,
+            "location": 3,
+            "hospitality": 4,
+            "howKnowUs": "friend"
+          }
+        ],
+        "dinner": [
+          {
+            "food": 5,
+            "service": 5,
+            "location": 4,
+            "hospitality": 5,
+            "howKnowUs": "friend"
+          }
+        ]
+      },
+      "7": {
+        "lunch": [
+          {
+            "food": 5,
+            "service": 5,
+            "location": 4,
+            "hospitality": 5,
+            "howKnowUs": "friend"
+          }
+        ]
+      },
+      "8": {
+        "lunch": [
+          {
+            "food": 3,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "client"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 4,
+            "hospitality": 5,
+            "howKnowUs": "client"
+          }
+        ]
+      },
+      "10": {
+        "dinner": [
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "client"
+          }
+        ],
+        "lunch": [
+          {
+            "food": 4,
+            "service": 5,
+            "location": 3,
+            "hospitality": 5,
+            "howKnowUs": "friend"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "client"
+          }
+        ]
+      },
+      "11": {
+        "dinner": [
+          {
+            "food": 5,
+            "service": 4,
+            "location": 4,
+            "hospitality": 5,
+            "howKnowUs": "client"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 4,
+            "hospitality": 5,
+            "howKnowUs": "client"
+          },
+          {
+            "food": 4,
+            "service": 5,
+            "location": 4,
+            "hospitality": 5,
+            "howKnowUs": "friend"
+          },
+          {
+            "food": 3,
+            "service": 5,
+            "location": 4,
+            "hospitality": 5,
+            "howKnowUs": "client"
+          }
+        ]
+      },
+      "12": {
+        "lunch": [
+          {
+            "food": 5,
+            "service": 4,
+            "location": 4,
+            "hospitality": 5,
+            "howKnowUs": "friend"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 3,
+            "hospitality": 4,
+            "howKnowUs": "client"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "friend"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "friend"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "friend"
+          },
+          {
+            "food": 4,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "friend"
+          },
+          {
+            "food": 3,
+            "service": 5,
+            "location": 5,
+            "hospitality": 4,
+            "howKnowUs": "client"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "social"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "client"
+          },
+          {
+            "food": 4,
+            "service": 5,
+            "location": 3,
+            "hospitality": 5,
+            "howKnowUs": "friend"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "friend"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "friend"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 4,
+            "hospitality": 5,
+            "howKnowUs": "friend"
+          }
+        ],
+        "dinner": [
+          {
+            "food": 3,
+            "service": 5,
+            "location": 4,
+            "hospitality": 5,
+            "howKnowUs": "client"
+          },
+          {
+            "food": 4,
+            "service": 5,
+            "location": 3,
+            "hospitality": 5,
+            "howKnowUs": "friend"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "friend"
+          },
+          {
+            "food": 4,
+            "service": 4,
+            "location": 3,
+            "hospitality": 5,
+            "howKnowUs": "client"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "client"
+          }
+        ]
+      },
+      "14": {
+        "lunch": [
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "client"
+          },
+          {
+            "food": 3,
+            "service": 4,
+            "location": 4,
+            "hospitality": 3,
+            "howKnowUs": "friend"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "client"
+          }
+        ],
+        "dinner": [
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "client"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 4,
+            "hospitality": 5,
+            "howKnowUs": "friend"
+          },
+          {
+            "food": 4,
+            "service": 5,
+            "location": 4,
+            "hospitality": 5,
+            "howKnowUs": "client"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "friend"
+          },
+          {
+            "food": 3,
+            "service": 4,
+            "location": 3,
+            "hospitality": 4,
+            "howKnowUs": "friend"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 4,
+            "hospitality": 5,
+            "howKnowUs": "client"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "client"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "friend"
+          }
+        ]
+      },
+      "15": {
+        "lunch": [
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "friend"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "client"
+          }
+        ],
+        "dinner": [
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "client"
+          }
+        ]
+      },
+      "16": {
+        "dinner": [
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "client"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "client"
+          }
+        ],
+        "lunch": [
+          {
+            "food": 4,
+            "service": 5,
+            "location": 4,
+            "hospitality": 4,
+            "howKnowUs": "friend"
+          }
+        ]
+      },
+      "17": {
+        "dinner": [
+          {
+            "food": 5,
+            "service": 5,
+            "location": 4,
+            "hospitality": 4,
+            "howKnowUs": "client"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 4,
+            "hospitality": 4,
+            "howKnowUs": "friend"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 4,
+            "howKnowUs": "friend"
+          }
+        ],
+        "lunch": [
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "client"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "friend"
+          }
+        ]
+      },
+      "18": {
+        "lunch": [
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "friend"
+          },
+          {
+            "food": 3,
+            "service": 4,
+            "location": 3,
+            "hospitality": 4,
+            "howKnowUs": "social"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "client"
+          },
+          {
+            "food": 4,
+            "service": 4,
+            "location": 1,
+            "hospitality": 5,
+            "howKnowUs": "friend"
+          }
+        ],
+        "dinner": [
+          {
+            "food": 4,
+            "service": 4,
+            "location": 3,
+            "hospitality": 4,
+            "howKnowUs": "client"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "social"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "client"
+          },
+          {
+            "food": 4,
+            "service": 4,
+            "location": 3,
+            "hospitality": 4,
+            "howKnowUs": "friend"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "client"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "client"
+          },
+          {
+            "food": 4,
+            "service": 4,
+            "location": 4,
+            "hospitality": 4,
+            "howKnowUs": "friend"
+          }
+        ]
+      },
+      "19": {
+        "lunch": [
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "client"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "client"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "friend"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "client"
+          },
+          {
+            "food": 4,
+            "service": 3,
+            "location": 3,
+            "hospitality": 3,
+            "howKnowUs": "friend"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 3,
+            "howKnowUs": "friend"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "social"
+          },
+          {
+            "food": 4,
+            "service": 5,
+            "location": 3,
+            "hospitality": 5,
+            "howKnowUs": "friend"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "client"
+          },
+          {
+            "food": 4,
+            "service": 3,
+            "location": 3,
+            "hospitality": 5,
+            "howKnowUs": "friend"
+          }
+        ]
+      },
+      "22": {
+        "lunch": [
+          {
+            "food": 4,
+            "service": 5,
+            "location": 4,
+            "hospitality": 5,
+            "howKnowUs": "social"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "friend"
+          },
+          {
+            "food": 4,
+            "service": 4,
+            "location": 4,
+            "hospitality": 4,
+            "howKnowUs": "client"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "client"
+          },
+          {
+            "food": 4,
+            "service": 4,
+            "location": 3,
+            "hospitality": 4,
+            "howKnowUs": "social"
+          }
+        ]
+      },
+      "23": {
+        "dinner": [
+          {
+            "food": 5,
+            "service": 5,
+            "location": 3,
+            "hospitality": 5,
+            "howKnowUs": "client"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 4,
+            "hospitality": 5,
+            "howKnowUs": "client"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "friend"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "client"
+          }
+        ]
+      },
+      "25": {
+        "lunch": [
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "client"
+          }
+        ],
+        "dinner": [
+          {
+            "food": 4,
+            "service": 4,
+            "location": 4,
+            "hospitality": 4,
+            "howKnowUs": "friend"
+          }
+        ]
+      },
+      "26": {
+        "dinner": [
+          {
+            "food": 5,
+            "service": 4,
+            "location": 4,
+            "hospitality": 5,
+            "howKnowUs": "client"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "client"
+          },
+          {
+            "food": 5,
+            "service": 4,
+            "location": 4,
+            "hospitality": 5,
+            "howKnowUs": "client"
+          },
+          {
+            "food": 4,
+            "service": 4,
+            "location": 4,
+            "hospitality": 4,
+            "howKnowUs": "friend"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "client"
+          },
+          {
+            "food": 4,
+            "service": 5,
+            "location": 4,
+            "hospitality": 4,
+            "howKnowUs": "client"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "friend"
+          }
+        ],
+        "lunch": [
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "client"
+          },
+          {
+            "food": 4,
+            "service": 2,
+            "location": 4,
+            "hospitality": 4,
+            "howKnowUs": "friend"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "friend"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "client"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "client"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "client"
+          },
+          {
+            "food": 4,
+            "service": 4,
+            "location": 3,
+            "hospitality": 4,
+            "howKnowUs": "client"
+          },
+          {
+            "food": 5,
+            "service": 5,
+            "location": 5,
+            "hospitality": 5,
+            "howKnowUs": "client"
+          },
+          {
+            "food": 4,
+            "service": 5,
+            "location": 3,
+            "hospitality": 4,
+            "howKnowUs": "friend"
+          }
+        ]
+      }
+    }
+  }
+}
