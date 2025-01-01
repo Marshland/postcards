@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build-with-base": "ng build --base-href=postcards",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:postcards": "node dist/postcards/server/server.mjs"
