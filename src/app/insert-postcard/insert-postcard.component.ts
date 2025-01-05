@@ -37,7 +37,7 @@ export class CreatePostcardComponent {
     hospitality: [5 as Rating, [Validators.required, Validators.min(1), Validators.max(5)]],
     howKnowUs: ['client' as HowKnowUs],
     email: ['', Validators.email],
-    phone: ['', Validators.pattern(/^\d{3}-\d{3}-\d{4}$/)],
+    phone: [''],
   });
 
   onSubmit() {
