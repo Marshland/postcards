@@ -18,7 +18,6 @@ export class CreatePostcardComponent {
   readonly #notificationService = inject(NotificationService);
 
   currentDate = new Date();
-  minYear = this.currentDate.getFullYear() - 1;
   maxYear = this.currentDate.getFullYear();
 
   readonly submittedPostcard = output<Postcard>();
@@ -26,7 +25,7 @@ export class CreatePostcardComponent {
   form = this.#formBuilder.nonNullable.group({
     year: [
       this.currentDate.getFullYear(),
-      [Validators.required, Validators.min(this.minYear), Validators.max(this.maxYear)],
+      [Validators.required, Validators.max(this.maxYear)],
     ],
     month: [this.currentDate.getMonth() + 1, [Validators.required, Validators.min(1), Validators.max(12)]],
     day: [this.currentDate.getDate(), [Validators.required, Validators.min(1), Validators.max(31)]],
