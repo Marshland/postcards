@@ -1,5 +1,6 @@
 import { computed, effect, Injectable, signal } from '@angular/core';
-import type { Postcard, YearPostcards } from './types';
+import type { Postcard, ServiceType, YearPostcards } from './types';
+import { assertType } from './utils/utils';
 
 @Injectable({ providedIn: 'root' })
 export class PostcardService {
@@ -98,6 +99,67 @@ export class PostcardService {
     a.remove();
 
     this.postcards.set({});
+  }
+
+  async importPostcardsFromFile(event: Event, merge = false) {
+    const target = event.target as HTMLInputElement;
+    if (!target.files) return;
+
+    const file = target.files[0];
+    if (!file) return;
+
+    const filePostcards = await this.#readPostcardsFromFile(file);
+
+    if (!merge) {
+      this.postcards.set(filePostcards);
+      return;
+    }
+
+    this.#importPostcards(filePostcards);
+  }
+
+  #readPostcardsFromFile(file: File): Promise<YearPostcards> {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        resolve(JSON.parse(reader.result as string) as YearPostcards);
+      };
+
+      reader.readAsText(file);
+    });
+  }
+
+  #importPostcards(importedPostcards: YearPostcards) {
+    const postcards = this.postcards();
+
+    for (const year in importedPostcards) {
+      if (!postcards[year]) {
+        postcards[year] = {};
+      }
+
+      for (const month in importedPostcards[year]) {
+        if (!postcards[year][month]) {
+          postcards[year][month] = {};
+        }
+
+        for (const day in importedPostcards[year][month]) {
+          if (!postcards[year][month][day]) {
+            postcards[year][month][day] = {};
+          }
+
+          for (const serviceType in importedPostcards[year][month][day]) {
+            assertType<ServiceType>(serviceType);
+            if (!postcards[year][month][day][serviceType]) {
+              postcards[year][month][day][serviceType] = [];
+            }
+
+            postcards[year][month][day][serviceType].push(...(importedPostcards[year][month][day][serviceType] ?? []));
+          }
+        }
+      }
+    }
+
+    this.postcards.set({ ...postcards });
   }
 
   #addLastInsertedPostcard(postcard: Postcard) {

@@ -48,3 +48,9 @@ body {
 :focus {
   outline: 2px solid #5099ed;
 }
+
+@media print {
+  .no-print {
+    display: none;
+  }
+}

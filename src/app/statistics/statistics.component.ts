@@ -14,39 +14,42 @@ import type { ServiceType } from './../types';
   imports: [KeyValuePipe],
 })
 export class StatisticsComponent {
-  total = 0;
-  totalClients = 0;
-  totalFriends = 0;
-  totalSocial = 0;
+  total = signal(0);
+  totalClients = signal(0);
+  totalFriends = signal(0);
+  totalSocial = signal(0);
 
-  percentageClients = '';
-  percentageFriends = '';
-  percentageSocial = '';
+  percentageClients = signal('');
+  percentageFriends = signal('');
+  percentageSocial = signal('');
 
-  statisticDays: Record<
-    string,
+  statisticDays = signal<
     Record<
-      ServiceType,
-      {
-        food: Record<Rating, number>;
-        foodPercentage: Record<Rating, string>;
-        service: Record<Rating, number>;
-        servicePercentage: Record<Rating, string>;
-        location: Record<Rating, number>;
-        locationPercentage: Record<Rating, string>;
-        hospitality: Record<Rating, number>;
-        hospitalityPercentage: Record<Rating, string>;
-      }
+      string,
+      Record<
+        ServiceType,
+        {
+          food: Record<Rating, number>;
+          foodPercentage: Record<Rating, string>;
+          service: Record<Rating, number>;
+          servicePercentage: Record<Rating, string>;
+          location: Record<Rating, number>;
+          locationPercentage: Record<Rating, string>;
+          hospitality: Record<Rating, number>;
+          hospitalityPercentage: Record<Rating, string>;
+        }
+      >
     >
-  > = {};
+  >({});
 
-  year = signal(2024);
-  month = signal(1);
+  year = signal('');
+  month = signal('');
 
   jsonResource = resource({
     request: () => ({ year: this.year(), month: this.month() }),
     loader: async ({ request: { year, month } }) => {
-      const response = await fetch(`/data/${year}/${month}.json`);
+      if (!year || !month) return;
+      const response = await fetch(`assets/data/${year}/${month.toString().padStart(2, '0')}.json`);
       return response.json();
     },
   });
@@ -56,11 +59,32 @@ export class StatisticsComponent {
       const data = this.jsonResource.value();
       if (!data || this.jsonResource.isLoading()) return;
 
-      this.calculate(data);
+      this.#calculate(data);
     });
   }
 
-  calculate(data: YearPostcards) {
+  protected onSelectMonthChange(month: string) {
+    this.month.set(month);
+    this.#reset();
+  }
+
+  protected onSelectYearChange(year: string) {
+    this.year.set(year);
+    this.#reset();
+  }
+
+  #reset() {
+    this.total.set(0);
+    this.totalClients.set(0);
+    this.totalFriends.set(0);
+    this.totalSocial.set(0);
+    this.percentageClients.set('');
+    this.percentageFriends.set('');
+    this.percentageSocial.set('');
+    this.statisticDays.set({});
+  }
+
+  #calculate(data: YearPostcards) {
     for (const year in data) {
       const yearData = data[year];
       for (const month in yearData) {
@@ -175,14 +199,15 @@ export class StatisticsComponent {
           for (const serviceType in dayData) {
             assertType<ServiceType>(serviceType);
             const serviceTypeData = dayData[serviceType];
-            this.total += serviceTypeData?.length ?? 0;
+            this.total.update((value) => value + (serviceTypeData?.length ?? 0));
+
             for (const postCard of serviceTypeData ?? []) {
               if (postCard.howKnowUs === 'client') {
-                this.totalClients++;
+                this.totalClients.update((value) => value + 1);
               } else if (postCard.howKnowUs === 'friend') {
-                this.totalFriends++;
+                this.totalFriends.update((value) => value + 1);
               } else if (postCard.howKnowUs === 'social') {
-                this.totalSocial++;
+                this.totalSocial.update((value) => value + 1);
               }
 
               statisticDay[serviceType].food[postCard.food]++;
@@ -219,12 +244,15 @@ export class StatisticsComponent {
               ).toFixed(1);
             }
           }
-          this.statisticDays[`${day}/${month}/${year}`] = statisticDay;
+          this.statisticDays.update((value) => {
+            value[`${day}/${month}/${year}`] = statisticDay;
+            return value;
+          });
         }
 
-        this.percentageClients = ((this.totalClients / this.total) * 100).toFixed(1);
-        this.percentageFriends = ((this.totalFriends / this.total) * 100).toFixed(1);
-        this.percentageSocial = ((this.totalSocial / this.total) * 100).toFixed(1);
+        this.percentageClients.set(((this.totalClients() / this.total()) * 100).toFixed(1));
+        this.percentageFriends.set(((this.totalFriends() / this.total()) * 100).toFixed(1));
+        this.percentageSocial.set(((this.totalSocial() / this.total()) * 100).toFixed(1));
       }
     }
   }

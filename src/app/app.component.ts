@@ -9,11 +9,22 @@ import { PostcardService } from './postcard.service';
   imports: [RouterOutlet, RouterLink, RouterLinkActive],
   styleUrl: './app.component.scss',
   template: `
-    <nav>
-      <!-- <a routerLink="/insert-postcard" routerLinkActive="route-selected">Insert Postcard</a>
-      <a routerLink="/statistics" routerLinkActive="route-selected">Statistics</a> -->
+    <nav class="no-print">
+      <a routerLink="/insert-postcard" routerLinkActive="route-selected">Insert Postcard</a>
+      <a routerLink="/statistics" routerLinkActive="route-selected">Statistics</a>
 
       <button (click)="postCardService.exportPostcards()" [disabled]="canDownload()">Scarica cartoline</button>
+
+      <div>
+        <div>
+          <span>Importa e sostutuisci cartoline </span>
+          <input type="file" (change)="importAndReplace($event)" />
+        </div>
+        <div>
+          <span>Importa ed unisci cartoline </span>
+          <input type="file" (change)="importAndMerge($event)" />
+        </div>
+      </div>
       <span data-end>N° cartoline {{ postCardService.totalPostcards() }}</span>
     </nav>
     <section>
@@ -28,5 +39,12 @@ export class AppComponent {
 
   constructor() {
     (window as any).postCardService = this.postCardService;
+  }
+
+  protected importAndMerge(event: Event) {
+    this.postCardService.importPostcardsFromFile(event, true);
+  }
+  protected importAndReplace(event: Event) {
+    this.postCardService.importPostcardsFromFile(event);
   }
 }
