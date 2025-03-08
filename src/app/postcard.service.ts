@@ -28,6 +28,50 @@ export class PostcardService {
     }, 0);
   });
 
+  allPhoneNumbers = computed(() => {
+    const postcards = this.postcards();
+    const phoneNumbers = new Set<string>();
+
+    for (const year in postcards) {
+      for (const month in postcards[year]) {
+        for (const day in postcards[year][month]) {
+          for (const serviceType in postcards[year][month][day]) {
+            assertType<ServiceType>(serviceType);
+            for (const postcard of postcards[year][month][day][serviceType] ?? []) {
+              if (postcard.phone) {
+                phoneNumbers.add(postcard.phone);
+              }
+            }
+          }
+        }
+      }
+    }
+
+    return phoneNumbers;
+  });
+
+  allEmails = computed(() => {
+    const postcards = this.postcards();
+    const emails = new Set<string>();
+
+    for (const year in postcards) {
+      for (const month in postcards[year]) {
+        for (const day in postcards[year][month]) {
+          for (const serviceType in postcards[year][month][day]) {
+            assertType<ServiceType>(serviceType);
+            for (const postcard of postcards[year][month][day][serviceType] ?? []) {
+              if (postcard.email) {
+                emails.add(postcard.email);
+              }
+            }
+          }
+        }
+      }
+    }
+
+    return emails;
+  });
+
   // #region effects
   /* eslint-disable no-unused-private-class-members */
   #savePostcards = effect(() => {
