@@ -10,7 +10,11 @@ export const routes: Routes = [
     loadComponent: () => import('./insert-postcard/insert-postcard.component').then((m) => m.CreatePostcardComponent),
   },
   {
+    path: 'dashboard',
+    loadComponent: () => import('./dashboard/dashboard.component').then((m) => m.DashboardComponent),
+  },
+  {
     path: '**',
-    redirectTo: '/insert-postcard',
+    redirectTo: '/dashboard',
   },
 ];

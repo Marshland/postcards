@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal, ViewEncapsulation } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { PostcardService } from './postcard.service';
 
@@ -8,43 +8,42 @@ import { PostcardService } from './postcard.service';
   encapsulation: ViewEncapsulation.None,
   imports: [RouterOutlet, RouterLink, RouterLinkActive],
   styleUrl: './app.component.scss',
-  template: `
-    <nav class="no-print">
-      <a routerLink="/insert-postcard" routerLinkActive="route-selected">Insert Postcard</a>
-      <a routerLink="/statistics" routerLinkActive="route-selected">Statistics</a>
-
-      <button (click)="postCardService.exportPostcards()" [disabled]="canDownload()">Scarica cartoline</button>
-
-      <div>
-        <div>
-          <span>Importa e sostutuisci cartoline </span>
-          <input type="file" (change)="importAndReplace($event)" />
-        </div>
-        <div>
-          <span>Importa ed unisci cartoline </span>
-          <input type="file" (change)="importAndMerge($event)" />
-        </div>
-      </div>
-      <span data-end>N° cartoline {{ postCardService.totalPostcards() }}</span>
-    </nav>
-    <section>
-      <router-outlet />
-    </section>
-  `,
+  templateUrl: './app.component.html',
 })
 export class AppComponent {
   protected readonly postCardService = inject(PostcardService);
+  protected isMenuOpen = signal(false);
 
   protected canDownload = computed(() => this.postCardService.totalPostcards() === 0);
+  protected canDownloadNumbers = computed(() => this.postCardService.allPhoneNumbers().length === 0);
+  protected canDownloadEmails = computed(() => this.postCardService.allEmails().length === 0);
 
   constructor() {
     (window as any).postCardService = this.postCardService;
   }
 
+  protected toggleMenu() {
+    this.isMenuOpen.update((value) => !value);
+  }
+
+  protected closeMenu() {
+    this.isMenuOpen.set(false);
+  }
+
   protected importAndMerge(event: Event) {
     this.postCardService.importPostcardsFromFile(event, true);
+    this.closeMenu();
   }
+
   protected importAndReplace(event: Event) {
     this.postCardService.importPostcardsFromFile(event);
+    this.closeMenu();
+  }
+
+  protected reset() {
+    if (confirm('Are you sure you want to reset all postcards?')) {
+      this.postCardService.reset();
+      this.closeMenu();
+    }
   }
 }

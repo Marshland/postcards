@@ -1,0 +1,130 @@
+.dashboard {
+  background-color: var(--background-color);
+  color: var(--text-primary);
+
+  .years-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .year-card {
+    background: var(--card-background);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px var(--shadow-color);
+    padding: 1.5rem;
+
+    .year-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 0.5rem;
+
+      h2 {
+        margin: 0;
+        color: var(--text-primary);
+        font-size: 1.5rem;
+      }
+
+      .year-total {
+        font-size: 1.1rem;
+        color: var(--text-secondary);
+        font-weight: 500;
+      }
+    }
+
+    .months-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .month-card {
+      appearance: none;
+      border: none;
+      width: 100%;
+      background: var(--month-card-background);
+      border-radius: 6px;
+      padding: 1rem;
+      text-align: center;
+      position: relative;
+      outline: none;
+      font-family: inherit;
+
+      &.clickable {
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &:hover,
+        &:focus-visible {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 8px var(--shadow-color);
+          background: var(--month-card-background-hover, rgba(255, 255, 255, 0.15));
+
+          .view-details {
+            opacity: 1;
+          }
+        }
+
+        &:active {
+          transform: translateY(0);
+        }
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        pointer-events: none;
+      }
+
+      h3 {
+        margin: 0 0 0.5rem 0;
+        color: var(--text-tertiary);
+        font-size: 1.1rem;
+        font-weight: normal;
+      }
+
+      .month-total {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--accent-color);
+        display: block;
+        margin-bottom: 0.5rem;
+      }
+
+      .view-details {
+        opacity: 0;
+        transition: opacity 0.2s ease;
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+
+        i {
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+}
+
+// Add responsive styles for smaller screens
+@media (max-width: 768px) {
+  .dashboard {
+    padding: 1rem;
+
+    .months-grid {
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)) !important;
+    }
+
+    .month-card {
+      .view-details {
+        opacity: 1 !important;
+      }
+    }
+  }
+}

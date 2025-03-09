@@ -1,9 +1,12 @@
 import type { KeyValue } from '@angular/common';
 import { KeyValuePipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, effect, resource, signal, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject, resource, signal, ViewEncapsulation } from '@angular/core';
 import type { Rating, YearPostcards } from '../types';
 import { assertType } from '../utils/utils';
 import type { ServiceType } from './../types';
+import { PostcardService } from '../postcard.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-statistics',
@@ -11,7 +14,8 @@ import type { ServiceType } from './../types';
   encapsulation: ViewEncapsulation.None,
   templateUrl: './statistics.component.html',
   styleUrls: ['./statistics.component.scss'],
-  imports: [KeyValuePipe],
+  imports: [KeyValuePipe, FormsModule],
+  standalone: true,
 })
 export class StatisticsComponent {
   total = signal(0);
@@ -42,6 +46,10 @@ export class StatisticsComponent {
     >
   >({});
 
+  #postCardService = inject(PostcardService);
+  #route = inject(ActivatedRoute);
+  #router = inject(Router);
+
   year = signal('');
   month = signal('');
 
@@ -49,12 +57,26 @@ export class StatisticsComponent {
     request: () => ({ year: this.year(), month: this.month() }),
     loader: async ({ request: { year, month } }) => {
       if (!year || !month) return;
-      const response = await fetch(`assets/data/${year}/${month.toString().padStart(2, '0')}.json`);
-      return response.json();
+      if (!this.#postCardService.loadStatisticsFromLocal) {
+        const response = await fetch(`assets/data/${year}/${month.toString().padStart(2, '0')}.json`);
+        return response.json();
+      }
+
+      return this.#postCardService.filterPostcards(+year, +month);
     },
   });
 
   constructor() {
+    // Handle query parameters
+    const params = this.#route.snapshot.queryParams;
+    if (params['year'] && params['month']) {
+      const yearStr = params['year'].toString();
+      const monthStr = params['month'].toString().padStart(2, '0');
+      this.year.set(yearStr);
+      this.month.set(monthStr);
+    }
+
+    // Handle data loading and calculation
     effect(() => {
       const data = this.jsonResource.value();
       if (!data || this.jsonResource.isLoading()) return;
@@ -65,12 +87,32 @@ export class StatisticsComponent {
 
   protected onSelectMonthChange(month: string) {
     this.month.set(month);
+    this.#updateQueryParams();
     this.#reset();
   }
 
   protected onSelectYearChange(year: string) {
     this.year.set(year);
+    this.#updateQueryParams();
     this.#reset();
+  }
+
+  #updateQueryParams() {
+    const year = this.year();
+    const month = this.month();
+
+    if (year && month) {
+      this.#router.navigate([], {
+        relativeTo: this.#route,
+        queryParams: { year, month },
+        queryParamsHandling: 'merge',
+      });
+    } else {
+      this.#router.navigate([], {
+        relativeTo: this.#route,
+        queryParams: {},
+      });
+    }
   }
 
   #reset() {

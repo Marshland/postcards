@@ -1,0 +1,32 @@
+<div class="dashboard">
+  <div class="years-container">
+    @for (year of getSortedYears(); track year) {
+    <div class="year-card">
+      <div class="year-header">
+        <h2>{{ year }}</h2>
+        <span class="year-total">Total: {{ getYearTotal(year) }}</span>
+      </div>
+      <div class="months-grid">
+        @for (month of getSortedMonths(year); track month) {
+        <button
+          class="month-card"
+          (click)="navigateToStatistics(year, month)"
+          [class.clickable]="getMonthTotal(year, month) > 0"
+          [disabled]="getMonthTotal(year, month) === 0"
+          [attr.aria-label]="getMonthName(month) + ' ' + year + ': ' + getMonthTotal(year, month) + ' postcards'"
+        >
+          <h3>{{ getMonthName(month) }}</h3>
+          <span class="month-total">{{ getMonthTotal(year, month) }}</span>
+          @if (getMonthTotal(year, month) > 0) {
+          <div class="view-details">
+            <i class="fas fa-chart-pie"></i>
+            <span>View Details</span>
+          </div>
+          }
+        </button>
+        }
+      </div>
+    </div>
+    }
+  </div>
+</div>

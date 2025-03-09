@@ -1,8 +1,11 @@
 app-insert-postcard {
   display: block;
   margin: auto;
-  padding: 0.5rem;
   max-width: 500px;
+  background: var(--card-background);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px var(--shadow-color);
+  padding: 1.5rem;
 
   fieldset {
     border: 1px solid #ccc;

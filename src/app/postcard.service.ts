@@ -4,6 +4,39 @@ import { assertType } from './utils/utils';
 
 @Injectable({ providedIn: 'root' })
 export class PostcardService {
+  #lastPhoneNumberNameAlphabet = 'U';
+  #lastPhoneNumberNameNumber = 137;
+  #maxPhoneNumberForLetter = 500;
+  #alphabet = [
+    'A',
+    'B',
+    'C',
+    'D',
+    'E',
+    'F',
+    'G',
+    'H',
+    'I',
+    'J',
+    'K',
+    'L',
+    'M',
+    'N',
+    'O',
+    'P',
+    'Q',
+    'R',
+    'S',
+    'T',
+    'U',
+    'V',
+    'W',
+    'X',
+    'Y',
+    'Z',
+  ];
+
+  loadStatisticsFromLocal = true;
   postcards = signal(JSON.parse(localStorage.getItem('postcards') ?? '{}') as YearPostcards);
   lastInsertedPostcards = signal<Postcard[]>([]);
   totalPostcards = computed(() => {
@@ -38,7 +71,7 @@ export class PostcardService {
           for (const serviceType in postcards[year][month][day]) {
             assertType<ServiceType>(serviceType);
             for (const postcard of postcards[year][month][day][serviceType] ?? []) {
-              if (postcard.phone) {
+              if (postcard.phone && postcard.phone.length > 9) {
                 phoneNumbers.add(postcard.phone);
               }
             }
@@ -47,12 +80,23 @@ export class PostcardService {
       }
     }
 
-    return phoneNumbers;
+    return Array.from(phoneNumbers);
   });
 
-  allEmails = computed(() => {
+  allVCards = computed(() => {
+    const phoneNumbers = this.allPhoneNumbers();
+    const vCards: string[] = [];
+
+    for (const phoneNumber of phoneNumbers) {
+      vCards.push(this.#getVCard(phoneNumber));
+    }
+
+    return vCards;
+  });
+
+  allEmailsWithAverage = computed(() => {
     const postcards = this.postcards();
-    const emails = new Set<string>();
+    const emails = new Map<string, number>();
 
     for (const year in postcards) {
       for (const month in postcards[year]) {
@@ -61,7 +105,8 @@ export class PostcardService {
             assertType<ServiceType>(serviceType);
             for (const postcard of postcards[year][month][day][serviceType] ?? []) {
               if (postcard.email) {
-                emails.add(postcard.email);
+                const average = (postcard.food + postcard.service + postcard.location + postcard.hospitality) / 4;
+                emails.set(postcard.email, average);
               }
             }
           }
@@ -70,6 +115,16 @@ export class PostcardService {
     }
 
     return emails;
+  });
+
+  emailsWithGoodAverage = computed(() => {
+    const emails = this.allEmailsWithAverage();
+    return Array.from(emails.entries()).filter(([, average]) => average >= 3.5);
+  });
+
+  allEmails = computed(() => {
+    const emails = this.allEmailsWithAverage();
+    return Array.from(emails.keys());
   });
 
   // #region effects
@@ -131,17 +186,24 @@ export class PostcardService {
     const postcards = this.postcards();
 
     const blob = new Blob([JSON.stringify(postcards, undefined, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
+    this.#downloadFile(blob, `postcards-${this.#createDateStr()}.json`);
 
-    const a = document.createElement('a');
-    a.href = url;
-    const date = new Date();
-    const dateStr = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}_${date.getHours()}-${date.getMinutes()}-${date.getSeconds()}`;
-    a.download = `postcards-${dateStr}.json`;
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
+    this.postcards.set({});
+  }
 
+  exportPostcardsNumbers() {
+    const vcards = this.allVCards();
+    const blob = new Blob([vcards.join('\n')], { type: 'text/plain' });
+    this.#downloadFile(blob, `vcards-${this.#createDateStr()}.vcf`);
+  }
+
+  exportPostcardsEmails() {
+    const emails = this.allEmails();
+    const blob = new Blob([emails.join(',')], { type: 'text/plain' });
+    this.#downloadFile(blob, `emails-${this.#createDateStr()}.txt`);
+  }
+
+  reset() {
     this.postcards.set({});
   }
 
@@ -149,17 +211,32 @@ export class PostcardService {
     const target = event.target as HTMLInputElement;
     if (!target.files) return;
 
-    const file = target.files[0];
-    if (!file) return;
-
-    const filePostcards = await this.#readPostcardsFromFile(file);
-
     if (!merge) {
+      const file = target.files[0];
+      if (!file) return;
+
+      const filePostcards = await this.#readPostcardsFromFile(file);
+
       this.postcards.set(filePostcards);
       return;
     }
 
-    this.#importPostcards(filePostcards);
+    const files = Array.from(target.files);
+    if (files.length === 0) return;
+
+    for (const file of files) {
+      const filePostcards = await this.#readPostcardsFromFile(file);
+      this.#importPostcards(filePostcards);
+    }
+  }
+
+  filterPostcards(year: number, month: number): YearPostcards {
+    const postcards = this.postcards();
+    return {
+      [year]: {
+        [month]: postcards[year][month],
+      },
+    };
   }
 
   #readPostcardsFromFile(file: File): Promise<YearPostcards> {
@@ -222,5 +299,35 @@ export class PostcardService {
 
     lastInsertedPostcards.splice(index, 1);
     this.lastInsertedPostcards.set(lastInsertedPostcards);
+  }
+
+  #createDateStr() {
+    const date = new Date();
+    return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}_${date.getHours()}-${date.getMinutes()}-${date.getSeconds()}`;
+  }
+
+  #downloadFile(blob: Blob, filename: string) {
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  }
+
+  #getVCard(phoneNumber: string): string {
+    if (this.#lastPhoneNumberNameNumber < this.#maxPhoneNumberForLetter) {
+      this.#lastPhoneNumberNameNumber++;
+    } else {
+      this.#lastPhoneNumberNameAlphabet = this.#alphabet[this.#alphabet.indexOf(this.#lastPhoneNumberNameAlphabet) + 1];
+      this.#lastPhoneNumberNameNumber = 1;
+    }
+
+    return `BEGIN:VCARD
+      VERSION:2.1
+      N;CHARSET=UTF-8:;${this.#lastPhoneNumberNameAlphabet}${this.#lastPhoneNumberNameNumber};;;
+      FN;CHARSET=UTF-8: ${this.#lastPhoneNumberNameAlphabet}${this.#lastPhoneNumberNameNumber}
+      TEL;CELL:${phoneNumber}
+      END:VCARD`;
   }
 }

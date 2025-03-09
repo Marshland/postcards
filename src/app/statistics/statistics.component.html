@@ -1,16 +1,7 @@
-<div class="no-print">
-  <label>
-    <span>Anno </span>
-    <select #year (change)="onSelectYearChange(year.value)">
-      <option value="">-</option>
-      <option value="2023">2023</option>
-      <option value="2024">2024</option>
-    </select>
-  </label>
-  <span> / </span>
+<div class="statistics-filters no-print">
   <label>
     <span>Mese </span>
-    <select #month (change)="onSelectMonthChange(month.value)">
+    <select [ngModel]="month()" (ngModelChange)="onSelectMonthChange($event)">
       <option value="">-</option>
       <option value="01">Gennaio</option>
       <option value="02">Febbraio</option>
@@ -24,6 +15,15 @@
       <option value="10">Ottobre</option>
       <option value="11">Novembre</option>
       <option value="12">Dicembre</option>
+    </select>
+  </label>
+  <span> / </span>
+  <label>
+    <span>Anno </span>
+    <select [ngModel]="year()" (ngModelChange)="onSelectYearChange($event)">
+      <option value="">-</option>
+      <option value="2023">2023</option>
+      <option value="2024">2024</option>
     </select>
   </label>
 </div>
