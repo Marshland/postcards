@@ -6,8 +6,12 @@
   --nav-border: var(--border-color, #404040);
   --button-disabled: #666666;
   --button-warning: #dc3545;
+  --button-warning-hover: color-mix(in srgb, var(--button-warning), black 20%);
   --nav-height: 64px;
   --mobile-nav-height: 56px;
+  --hover-bg: rgba(255, 255, 255, 0.1);
+  --hover-bg-strong: rgba(255, 255, 255, 0.2);
+  --active-bg: rgba(255, 255, 255, 0.05);
 }
 
 .app-nav {
@@ -23,150 +27,137 @@
   left: 0;
   right: 0;
   z-index: 1000;
+}
 
-  .menu-toggle {
-    display: none;
-    background: none;
-    border: none;
-    color: var(--nav-text);
-    font-size: 1.5rem;
-    cursor: pointer;
-    padding: 0.5rem;
-    margin-right: 0.5rem;
-    transition: color 0.2s ease;
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--nav-text);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  margin-right: 0.5rem;
+  transition: color 0.2s ease;
 
-    &:hover {
-      color: var(--nav-hover);
-    }
-  }
-
-  .nav-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-  }
-
-  .nav-section {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .nav-routes {
-    a {
-      color: var(--nav-text);
-      text-decoration: none;
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      transition: all 0.2s ease;
-
-      i {
-        font-size: 1.1rem;
-      }
-
-      &:hover {
-        color: var(--nav-hover);
-        background: rgba(255, 255, 255, 0.1);
-      }
-
-      &.route-selected {
-        color: var(--nav-active);
-        background: rgba(255, 255, 255, 0.05);
-      }
-    }
-  }
-
-  .nav-actions {
-    .action-group {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0 0.5rem;
-      border-left: 1px solid var(--nav-border);
-    }
-
-    .action-button {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.5rem 1rem;
-      border: none;
-      border-radius: 6px;
-      background: rgba(255, 255, 255, 0.1);
-      color: var(--nav-text);
-      cursor: pointer;
-      transition: all 0.2s ease;
-
-      &:hover:not(.disabled) {
-        background: rgba(255, 255, 255, 0.2);
-      }
-
-      &.disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-        background: rgba(255, 255, 255, 0.05);
-      }
-
-      &.warning {
-        background: var(--button-warning);
-        &:hover {
-          background: darken(#dc3545, 10%);
-        }
-      }
-
-      i {
-        font-size: 1.1rem;
-      }
-    }
-
-    .import-group {
-      .import-action {
-        .file-input-label {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-          padding: 0.5rem 1rem;
-          border-radius: 6px;
-          background: rgba(255, 255, 255, 0.1);
-          color: var(--nav-text);
-          cursor: pointer;
-          transition: all 0.2s ease;
-
-          &:hover {
-            background: rgba(255, 255, 255, 0.2);
-          }
-
-          input[type='file'] {
-            display: none;
-          }
-        }
-      }
-    }
-
-    .total-cards {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
-      background: rgba(255, 255, 255, 0.05);
-      color: var(--nav-text);
-
-      i {
-        color: var(--nav-active);
-      }
-    }
+  &:hover {
+    color: var(--nav-hover);
   }
 }
+
+.nav-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.nav-section {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+// Navigation routes
+.nav-routes a {
+  color: var(--nav-text);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+
+  i {
+    font-size: 1.1rem;
+  }
+
+  &:hover {
+    color: var(--nav-hover);
+    background: var(--hover-bg);
+  }
+
+  &.route-selected {
+    color: var(--nav-active);
+    background: var(--active-bg);
+  }
+}
+
+// Action buttons and groups
+.action-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0 0.5rem;
+  border-left: 1px solid var(--nav-border);
+}
+
+.action-button,
+.file-input-label,
+.total-cards {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  color: var(--nav-text);
+  transition: all 0.2s ease;
+}
+
+.action-button {
+  border: none;
+  background: var(--hover-bg);
+  cursor: pointer;
+
+  &:hover:not(.disabled) {
+    background: var(--hover-bg-strong);
+  }
+
+  &.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: var(--active-bg);
+  }
+
+  &.warning {
+    background: var(--button-warning);
+    &:hover {
+      background: var(--button-warning-hover);
+    }
+  }
+
+  i {
+    font-size: 1.1rem;
+  }
+}
+
+.file-input-label {
+  background: var(--hover-bg);
+  cursor: pointer;
+
+  &:hover {
+    background: var(--hover-bg-strong);
+  }
+
+  input[type='file'] {
+    display: none;
+  }
+}
+
+.total-cards {
+  background: var(--active-bg);
+
+  i {
+    color: var(--nav-active);
+  }
+}
+
 .main-content {
   padding: 2rem;
 }
 
-// Mobile styles
+// Responsive styles
 @media (max-width: 1024px) {
   .app-nav {
     height: var(--mobile-nav-height);
@@ -194,60 +185,50 @@
     &.nav-open .nav-content {
       transform: translateX(0);
     }
+  }
 
-    .nav-section {
-      flex-direction: column;
-      align-items: stretch;
-      width: 100%;
-      gap: 0;
+  .nav-section {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    gap: 0;
+  }
+
+  .nav-routes a {
+    padding: 1rem;
+    border-radius: 0;
+    border-bottom: 1px solid var(--nav-border);
+
+    &:last-child {
+      border-bottom: none;
     }
+  }
 
-    .nav-routes {
-      a {
-        padding: 1rem;
-        border-radius: 0;
-        border-bottom: 1px solid var(--nav-border);
+  .action-group {
+    flex-direction: column;
+    padding: 1rem 0;
+    border-left: none;
+    border-top: 1px solid var(--nav-border);
+  }
 
-        &:last-child {
-          border-bottom: none;
-        }
-      }
-    }
-
-    .nav-actions {
-      .action-group {
-        flex-direction: column;
-        padding: 1rem 0;
-        border-left: none;
-        border-top: 1px solid var(--nav-border);
-      }
-
-      .action-button,
-      .file-input-label,
-      .total-cards {
-        width: 100%;
-        justify-content: center;
-      }
-    }
+  .action-button,
+  .file-input-label,
+  .total-cards {
+    width: 100%;
+    justify-content: center;
   }
 }
 
-// Medium screens
 @media (min-width: 1025px) and (max-width: 1280px) {
-  .app-nav {
-    .nav-actions {
-      .action-group {
-        .action-button,
-        .file-input-label {
-          span {
-            display: none;
-          }
-          i {
-            margin: 0;
-          }
-          padding: 0.5rem;
-        }
-      }
+  .action-button,
+  .file-input-label {
+    padding: 0.5rem;
+
+    span {
+      display: none;
+    }
+    i {
+      margin: 0;
     }
   }
 }

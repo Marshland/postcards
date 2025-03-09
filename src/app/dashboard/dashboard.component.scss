@@ -1,18 +1,30 @@
+:root {
+  --card-shadow: 0 2px 4px var(--shadow-color);
+  --card-shadow-hover: 0 4px 8px var(--shadow-color);
+  --card-padding: 1.5rem;
+  --card-gap: 2rem;
+  --month-card-min-width: 200px;
+  --month-card-padding: 1rem;
+  --font-xl: 1.5rem;
+  --font-lg: 1.1rem;
+  --spacing-sm: 0.5rem;
+}
+
 .dashboard {
-  background-color: var(--background-color);
+  background: var(--background-color);
   color: var(--text-primary);
 
   .years-container {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: var(--card-gap);
   }
 
   .year-card {
     background: var(--card-background);
     border-radius: 8px;
-    box-shadow: 0 2px 4px var(--shadow-color);
-    padding: 1.5rem;
+    box-shadow: var(--card-shadow);
+    padding: var(--card-padding);
 
     .year-header {
       display: flex;
@@ -20,16 +32,16 @@
       align-items: center;
       margin-bottom: 1rem;
       border-bottom: 1px solid var(--border-color);
-      padding-bottom: 0.5rem;
+      padding-bottom: var(--spacing-sm);
 
       h2 {
         margin: 0;
         color: var(--text-primary);
-        font-size: 1.5rem;
+        font-size: var(--font-xl);
       }
 
       .year-total {
-        font-size: 1.1rem;
+        font-size: var(--font-lg);
         color: var(--text-secondary);
         font-weight: 500;
       }
@@ -37,7 +49,7 @@
 
     .months-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(var(--month-card-min-width), 1fr));
       gap: 1rem;
     }
 
@@ -47,7 +59,7 @@
       width: 100%;
       background: var(--month-card-background);
       border-radius: 6px;
-      padding: 1rem;
+      padding: var(--month-card-padding);
       text-align: center;
       position: relative;
       outline: none;
@@ -60,7 +72,7 @@
         &:hover,
         &:focus-visible {
           transform: translateY(-2px);
-          box-shadow: 0 4px 8px var(--shadow-color);
+          box-shadow: var(--card-shadow-hover);
           background: var(--month-card-background-hover, rgba(255, 255, 255, 0.15));
 
           .view-details {
@@ -80,18 +92,18 @@
       }
 
       h3 {
-        margin: 0 0 0.5rem 0;
+        margin: 0 0 var(--spacing-sm) 0;
         color: var(--text-tertiary);
-        font-size: 1.1rem;
+        font-size: var(--font-lg);
         font-weight: normal;
       }
 
       .month-total {
-        font-size: 1.5rem;
+        font-size: var(--font-xl);
         font-weight: 600;
         color: var(--accent-color);
         display: block;
-        margin-bottom: 0.5rem;
+        margin-bottom: var(--spacing-sm);
       }
 
       .view-details {
@@ -102,7 +114,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 0.5rem;
+        gap: var(--spacing-sm);
 
         i {
           font-size: 1rem;
@@ -115,16 +127,14 @@
 // Add responsive styles for smaller screens
 @media (max-width: 768px) {
   .dashboard {
-    padding: 1rem;
+    padding: var(--month-card-padding);
+  }
 
-    .months-grid {
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)) !important;
-    }
+  .months-grid {
+    --month-card-min-width: 150px;
+  }
 
-    .month-card {
-      .view-details {
-        opacity: 1 !important;
-      }
-    }
+  .view-details {
+    opacity: 1;
   }
 }
