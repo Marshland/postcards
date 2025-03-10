@@ -15,8 +15,10 @@ export class AppComponent {
   protected isMenuOpen = signal(false);
 
   protected canDownload = computed(() => this.postCardService.totalPostcards() === 0);
-  protected canDownloadNumbers = computed(() => this.postCardService.allPhoneNumbers().length === 0);
   protected canDownloadEmails = computed(() => this.postCardService.allEmails().length === 0);
+  protected canDownloadEmailsWithGoodAverage = computed(
+    () => this.postCardService.emailsWithGoodAverage().length === 0,
+  );
 
   constructor() {
     (window as any).postCardService = this.postCardService;

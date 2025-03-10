@@ -15,12 +15,12 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
-    "target": "ES2024",
-    "module": "ES2022",
+    "target": "ESNext",
+    "module": "ESNext",
     "useDefineForClassFields": false,
     "resolveJsonModule": true,
     "lib": [
-      "ES2024",
+      "ESNext",
       "dom"
     ]
   },

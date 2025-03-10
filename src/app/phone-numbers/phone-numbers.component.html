@@ -1,0 +1,9 @@
+<div>total phone numbers: {{ phoneNumbers().size }}</div>
+
+<div>total phone numbers to add: {{ phoneNumbersToAdd().size }}</div>
+
+<div>phone numbers that are not in contacts: {{ phoneNumbersThatAreNotInContacts().size }}</div>
+
+<div>
+  <button (click)="downloadPhoneNumbersToAdd()">Download phone numbers to add</button>
+</div>

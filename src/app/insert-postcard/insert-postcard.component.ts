@@ -4,6 +4,8 @@ import { NotificationService } from '../notification.service';
 import { PostcardService } from '../postcard.service';
 import type { HowKnowUs, Postcard, Rating, ServiceType } from '../types';
 
+const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
 @Component({
   selector: 'app-insert-postcard',
   styleUrl: './insert-postcard.component.scss',
@@ -23,10 +25,7 @@ export class CreatePostcardComponent {
   readonly submittedPostcard = output<Postcard>();
 
   form = this.#formBuilder.nonNullable.group({
-    year: [
-      this.currentDate.getFullYear(),
-      [Validators.required, Validators.max(this.maxYear)],
-    ],
+    year: [this.currentDate.getFullYear(), [Validators.required, Validators.max(this.maxYear)]],
     month: [this.currentDate.getMonth() + 1, [Validators.required, Validators.min(1), Validators.max(12)]],
     day: [this.currentDate.getDate(), [Validators.required, Validators.min(1), Validators.max(31)]],
     serviceType: ['lunch' as ServiceType],
@@ -35,7 +34,7 @@ export class CreatePostcardComponent {
     location: [5 as Rating, [Validators.required, Validators.min(1), Validators.max(5)]],
     hospitality: [5 as Rating, [Validators.required, Validators.min(1), Validators.max(5)]],
     howKnowUs: ['client' as HowKnowUs],
-    email: ['', Validators.email],
+    email: ['', Validators.pattern(EMAIL_REGEX)],
     phone: [''],
   });
 

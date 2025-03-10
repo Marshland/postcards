@@ -4,8 +4,8 @@ import { assertType } from './utils/utils';
 
 @Injectable({ providedIn: 'root' })
 export class PostcardService {
-  #lastPhoneNumberNameAlphabet = 'U';
-  #lastPhoneNumberNameNumber = 137;
+  #lastPhoneNumberNameAlphabet = 'V';
+  #lastPhoneNumberNameNumber = 99;
   #maxPhoneNumberForLetter = 500;
   #alphabet = [
     'A',
@@ -80,18 +80,7 @@ export class PostcardService {
       }
     }
 
-    return Array.from(phoneNumbers);
-  });
-
-  allVCards = computed(() => {
-    const phoneNumbers = this.allPhoneNumbers();
-    const vCards: string[] = [];
-
-    for (const phoneNumber of phoneNumbers) {
-      vCards.push(this.#getVCard(phoneNumber));
-    }
-
-    return vCards;
+    return phoneNumbers;
   });
 
   allEmailsWithAverage = computed(() => {
@@ -119,7 +108,13 @@ export class PostcardService {
 
   emailsWithGoodAverage = computed(() => {
     const emails = this.allEmailsWithAverage();
-    return Array.from(emails.entries()).filter(([, average]) => average >= 3.5);
+    const emailsWithGoodAverage: string[] = [];
+    for (const [email, average] of emails.entries()) {
+      if (average >= 4) {
+        emailsWithGoodAverage.push(email);
+      }
+    }
+    return emailsWithGoodAverage;
   });
 
   allEmails = computed(() => {
@@ -186,21 +181,21 @@ export class PostcardService {
     const postcards = this.postcards();
 
     const blob = new Blob([JSON.stringify(postcards, undefined, 2)], { type: 'application/json' });
-    this.#downloadFile(blob, `postcards-${this.#createDateStr()}.json`);
+    this.downloadFile(blob, `postcards-${this.createDateStr()}.json`);
 
     this.postcards.set({});
   }
 
-  exportPostcardsNumbers() {
-    const vcards = this.allVCards();
-    const blob = new Blob([vcards.join('\n')], { type: 'text/plain' });
-    this.#downloadFile(blob, `vcards-${this.#createDateStr()}.vcf`);
-  }
-
   exportPostcardsEmails() {
     const emails = this.allEmails();
+    const blob = new Blob([emails.join('\n')], { type: 'text/plain' });
+    this.downloadFile(blob, `emails-${this.createDateStr()}.txt`);
+  }
+
+  exportPostcardsEmailsWithGoodAverage() {
+    const emails = this.emailsWithGoodAverage();
     const blob = new Blob([emails.join(',')], { type: 'text/plain' });
-    this.#downloadFile(blob, `emails-${this.#createDateStr()}.txt`);
+    this.downloadFile(blob, `emails-with-good-average-${this.createDateStr()}.txt`);
   }
 
   reset() {
@@ -237,6 +232,36 @@ export class PostcardService {
         [month]: postcards[year][month],
       },
     };
+  }
+
+  getVCard(phoneNumber: string): string {
+    if (this.#lastPhoneNumberNameNumber < this.#maxPhoneNumberForLetter) {
+      this.#lastPhoneNumberNameNumber++;
+    } else {
+      this.#lastPhoneNumberNameAlphabet = this.#alphabet[this.#alphabet.indexOf(this.#lastPhoneNumberNameAlphabet) + 1];
+      this.#lastPhoneNumberNameNumber = 1;
+    }
+
+    return `BEGIN:VCARD
+VERSION:2.1
+N;CHARSET=UTF-8:;${this.#lastPhoneNumberNameAlphabet}${this.#lastPhoneNumberNameNumber};;;
+FN;CHARSET=UTF-8: ${this.#lastPhoneNumberNameAlphabet}${this.#lastPhoneNumberNameNumber}
+TEL;CELL:${phoneNumber}
+END:VCARD`;
+  }
+
+  createDateStr() {
+    const date = new Date();
+    return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}_${date.getHours()}-${date.getMinutes()}-${date.getSeconds()}`;
+  }
+
+  downloadFile(blob: Blob, filename: string) {
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
   }
 
   #readPostcardsFromFile(file: File): Promise<YearPostcards> {
@@ -299,35 +324,5 @@ export class PostcardService {
 
     lastInsertedPostcards.splice(index, 1);
     this.lastInsertedPostcards.set(lastInsertedPostcards);
-  }
-
-  #createDateStr() {
-    const date = new Date();
-    return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}_${date.getHours()}-${date.getMinutes()}-${date.getSeconds()}`;
-  }
-
-  #downloadFile(blob: Blob, filename: string) {
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-  }
-
-  #getVCard(phoneNumber: string): string {
-    if (this.#lastPhoneNumberNameNumber < this.#maxPhoneNumberForLetter) {
-      this.#lastPhoneNumberNameNumber++;
-    } else {
-      this.#lastPhoneNumberNameAlphabet = this.#alphabet[this.#alphabet.indexOf(this.#lastPhoneNumberNameAlphabet) + 1];
-      this.#lastPhoneNumberNameNumber = 1;
-    }
-
-    return `BEGIN:VCARD
-      VERSION:2.1
-      N;CHARSET=UTF-8:;${this.#lastPhoneNumberNameAlphabet}${this.#lastPhoneNumberNameNumber};;;
-      FN;CHARSET=UTF-8: ${this.#lastPhoneNumberNameAlphabet}${this.#lastPhoneNumberNameNumber}
-      TEL;CELL:${phoneNumber}
-      END:VCARD`;
   }
 }

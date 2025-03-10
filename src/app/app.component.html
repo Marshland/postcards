@@ -9,6 +9,10 @@
         <i class="fas fa-chart-bar"></i>
         <span>Dashboard</span>
       </a>
+      <a routerLink="/phone-numbers" routerLinkActive="route-selected" (click)="closeMenu()">
+        <i class="fas fa-phone"></i>
+        <span>Phone Numbers</span>
+      </a>
       <a routerLink="/insert-postcard" routerLinkActive="route-selected" (click)="closeMenu()">
         <i class="fas fa-plus-circle"></i>
         <span>Insert Postcard</span>
@@ -33,16 +37,6 @@
         </button>
         <button
           class="action-button"
-          [class.disabled]="canDownloadNumbers()"
-          (click)="postCardService.exportPostcardsNumbers()"
-          [disabled]="canDownloadNumbers()"
-          title="Export Numbers"
-        >
-          <i class="fas fa-phone"></i>
-          <span>Export Numbers</span>
-        </button>
-        <button
-          class="action-button"
           [class.disabled]="canDownloadEmails()"
           (click)="postCardService.exportPostcardsEmails()"
           [disabled]="canDownloadEmails()"
@@ -50,6 +44,16 @@
         >
           <i class="fas fa-envelope"></i>
           <span>Export Emails</span>
+        </button>
+        <button
+          class="action-button"
+          [class.disabled]="canDownloadEmailsWithGoodAverage()"
+          (click)="postCardService.exportPostcardsEmailsWithGoodAverage()"
+          [disabled]="canDownloadEmailsWithGoodAverage()"
+          title="Export Emails with Good Average"
+        >
+          <i class="fas fa-envelope"></i>
+          <span>Export Emails with Good Average</span>
         </button>
       </div>
 

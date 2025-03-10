@@ -14,6 +14,10 @@ export const routes: Routes = [
     loadComponent: () => import('./dashboard/dashboard.component').then((m) => m.DashboardComponent),
   },
   {
+    path: 'phone-numbers',
+    loadComponent: () => import('./phone-numbers/phone-numbers.component').then((m) => m.PhoneNumbersComponent),
+  },
+  {
     path: '**',
     redirectTo: '/dashboard',
   },
