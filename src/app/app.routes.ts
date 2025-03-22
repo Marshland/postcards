@@ -18,6 +18,10 @@ export const routes: Routes = [
     loadComponent: () => import('./phone-numbers/phone-numbers.component').then((m) => m.PhoneNumbersComponent),
   },
   {
+    path: 'emails',
+    loadComponent: () => import('./unique-emails/unique-emails.component').then((m) => m.UniqueEmailsComponent),
+  },
+  {
     path: '**',
     redirectTo: '/dashboard',
   },

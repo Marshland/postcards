@@ -114,12 +114,12 @@ export class PostcardService {
         emailsWithGoodAverage.push(email);
       }
     }
-    return emailsWithGoodAverage;
+    return new Set(emailsWithGoodAverage);
   });
 
   allEmails = computed(() => {
     const emails = this.allEmailsWithAverage();
-    return Array.from(emails.keys());
+    return new Set(emails.keys());
   });
 
   // #region effects
@@ -184,18 +184,6 @@ export class PostcardService {
     this.downloadFile(blob, `postcards-${this.createDateStr()}.json`);
 
     this.postcards.set({});
-  }
-
-  exportPostcardsEmails() {
-    const emails = this.allEmails();
-    const blob = new Blob([emails.join('\n')], { type: 'text/plain' });
-    this.downloadFile(blob, `emails-${this.createDateStr()}.txt`);
-  }
-
-  exportPostcardsEmailsWithGoodAverage() {
-    const emails = this.emailsWithGoodAverage();
-    const blob = new Blob([emails.join(',')], { type: 'text/plain' });
-    this.downloadFile(blob, `emails-with-good-average-${this.createDateStr()}.txt`);
   }
 
   reset() {

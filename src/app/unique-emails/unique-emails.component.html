@@ -1,0 +1,16 @@
+<div>total emails: {{ emails().size }}</div>
+
+<div>
+  <p>total emails to add: {{ emailsToAdd().size }}</p>
+  <p>emails that are not in contacts: {{ emailsThatAreNotInContacts().size }}</p>
+</div>
+
+<div>
+  <p>total emails with good average: {{ emailsWithGoodAverage().size }}</p>
+  <p>emails with good average that are not in contacts: {{ emailsWithGoodAverageThatAreNotInContacts().size }}</p>
+</div>
+
+<div>
+  <button (click)="downloadEmailsToAdd()">Download emails to add</button>
+  <button (click)="downloadEmailsToAddWithGoodAverage()">Download emails to add (good average)</button>
+</div>
