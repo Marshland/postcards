@@ -4,8 +4,8 @@ import { assertType } from './utils/utils';
 
 @Injectable({ providedIn: 'root' })
 export class PostcardService {
-  #lastPhoneNumberNameAlphabet = 'V';
-  #lastPhoneNumberNameNumber = 99;
+  lastLetter = signal<string>('A');
+  lastNumber = signal<number>(1);
   #maxPhoneNumberForLetter = 500;
   #alphabet = [
     'A',
@@ -223,17 +223,20 @@ export class PostcardService {
   }
 
   getVCard(phoneNumber: string): string {
-    if (this.#lastPhoneNumberNameNumber < this.#maxPhoneNumberForLetter) {
-      this.#lastPhoneNumberNameNumber++;
+    const lastLetter = this.lastLetter();
+    const lastNumber = this.lastNumber();
+
+    if (lastNumber < this.#maxPhoneNumberForLetter) {
+      this.lastNumber.set(lastNumber + 1);
     } else {
-      this.#lastPhoneNumberNameAlphabet = this.#alphabet[this.#alphabet.indexOf(this.#lastPhoneNumberNameAlphabet) + 1];
-      this.#lastPhoneNumberNameNumber = 1;
+      this.lastLetter.set(this.#alphabet[this.#alphabet.indexOf(lastLetter) + 1]);
+      this.lastNumber.set(1);
     }
 
     return `BEGIN:VCARD
 VERSION:2.1
-N;CHARSET=UTF-8:;${this.#lastPhoneNumberNameAlphabet}${this.#lastPhoneNumberNameNumber};;;
-FN;CHARSET=UTF-8: ${this.#lastPhoneNumberNameAlphabet}${this.#lastPhoneNumberNameNumber}
+N;CHARSET=UTF-8:${this.lastLetter()}${this.lastNumber()};;;
+FN;CHARSET=UTF-8: ${this.lastLetter()}${this.lastNumber()}
 TEL;CELL:${phoneNumber}
 END:VCARD`;
   }

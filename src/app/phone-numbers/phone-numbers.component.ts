@@ -32,6 +32,10 @@ export class PhoneNumbersComponent {
       const phoneNumbers = this.#extractPhoneNumbers(contacts);
 
       this.phoneNumbers.set(new Set(phoneNumbers));
+      const [lastLetter, lastNumber] = this.#extractLastContactName(contacts);
+      console.log(lastLetter, lastNumber);
+      this.#postcardService.lastLetter.set(lastLetter);
+      this.#postcardService.lastNumber.set(lastNumber);
     });
   }
 
@@ -49,5 +53,25 @@ export class PhoneNumbersComponent {
 
   #extractPhoneNumbers(contacts: string): string[] {
     return contacts.match(/^TEL;CELL:(.*)$/gm)?.map((match) => match.split(':')[1].trim()) || [];
+  }
+
+  #extractLastContactName(contacts: string): [string, number] {
+    let foundLastLetter = 'A';
+    let foundLastNumber = 1;
+
+    contacts.match(/^FN;ENCODING=QUOTED-PRINTABLE;CHARSET=UTF-8:(.*)$/gm)?.forEach((match) => {
+      const name = match.split(':')[1].trim();
+      const [firstLetter, ...rest] = name.split('');
+      const lastNumber = Number(rest.join(''));
+      if (Number.isNaN(lastNumber)) return;
+      if (firstLetter > foundLastLetter) {
+        foundLastLetter = firstLetter;
+        foundLastNumber = lastNumber;
+      } else if (firstLetter === foundLastLetter && lastNumber > foundLastNumber) {
+        foundLastNumber = lastNumber;
+      }
+    });
+
+    return [foundLastLetter, foundLastNumber];
   }
 }
