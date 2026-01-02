@@ -12,7 +12,7 @@ import { PostcardService } from '../postcard.service';
 export class PhoneNumbersComponent {
   #postcardService = inject(PostcardService);
 
-  contactsResource = httpResource.text('./assets/data/contacts.vcf');
+  contactsResource = httpResource.text(() => './assets/data/contacts.vcf');
 
   phoneNumbers = signal<Set<string>>(new Set());
   phoneNumbersToAdd = this.#postcardService.allPhoneNumbers;

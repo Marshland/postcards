@@ -12,7 +12,7 @@ import { PostcardService } from '../postcard.service';
 export class UniqueEmailsComponent {
   #postcardService = inject(PostcardService);
 
-  emailsResource = httpResource.text('./assets/data/all-emails.csv');
+  emailsResource = httpResource.text(() => './assets/data/all-emails.csv');
 
   emails = signal<Set<string>>(new Set());
   emailsToAdd = this.#postcardService.allEmails;

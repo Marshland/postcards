@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, inject, ViewEncapsulation } from '@angular/core';
 import { PostcardService } from '../postcard.service';
-import { CommonModule } from '@angular/common';
 import type { ServiceType } from '../types';
 import { Router } from '@angular/router';
 
@@ -10,8 +9,6 @@ import { Router } from '@angular/router';
   encapsulation: ViewEncapsulation.None,
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
-  standalone: true,
-  imports: [CommonModule],
 })
 export class DashboardComponent {
   #postCardService = inject(PostcardService);

@@ -54,8 +54,8 @@ export class StatisticsComponent {
   month = signal('');
 
   jsonResource = resource({
-    request: () => ({ year: this.year(), month: this.month() }),
-    loader: async ({ request: { year, month } }) => {
+    params: () => ({ year: this.year(), month: this.month() }),
+    loader: async ({ params: { year, month } }) => {
       if (!year || !month) return;
       if (!this.#postCardService.loadStatisticsFromLocal) {
         const response = await fetch(`assets/data/${year}/${month.toString().padStart(2, '0')}.json`);
@@ -297,6 +297,15 @@ export class StatisticsComponent {
         this.percentageSocial.set(((this.totalSocial() / this.total()) * 100).toFixed(1));
       }
     }
+  }
+
+  protected deleteCurrentMonth() {
+    const year = this.year();
+    const month = this.month();
+    if (!year || !month) return;
+
+    this.#postCardService.deleteMonth(+year, +month);
+    this.jsonResource.reload();
   }
 
   // Order by ascending property value

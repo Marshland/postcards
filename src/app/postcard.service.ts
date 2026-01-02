@@ -177,6 +177,12 @@ export class PostcardService {
     this.#removeLastInsertedPostcard(postcard);
   }
 
+  deleteMonth(year: number, month: number) {
+    const postCards = this.postcards();
+    delete postCards[year][month];
+    this.postcards.set({ ...postCards });
+  }
+
   exportPostcards() {
     const postcards = this.postcards();
 
